@@ -233,7 +233,7 @@ export const LandingPage: React.FC = () => {
                     {/* Main Image */}
                     <div className="relative overflow-hidden rounded-2xl h-64 md:h-80 shadow-lg group border-4 border-white dark:border-gray-700">
                         <img 
-                            src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/86/Chennai_Central_Railway_Station.jpg/1200px-Chennai_Central_Railway_Station.jpg" 
+                            src="https://lh3.googleusercontent.com/gps-cs-s/AG0ilSwJiFbmk56svXsYG7aZwcZEwtWNrsV2dIAvB2cW7TniKGe9SLvIK3PNjqltmLQSV9PzAE09CjziXZj2BaLL8MFtG9qrAUtgT7JJD23RPS1r6UioI-QZrjN4goDuTWTVOsvj299hNg=w675-h390-n-k-no" 
                             alt="Chennai Central Railway Station" 
                             className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" 
                         />
