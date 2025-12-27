@@ -13,6 +13,12 @@ interface Props {
   view: 'overview' | 'report' | 'community';
 }
 
+// Helper function to format date and time
+const formatDateTime = (timestamp: number): string => {
+  const date = new Date(timestamp);
+  return `${date.toLocaleDateString()} ${date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`;
+};
+
 export const CitizenDashboard: React.FC<Props> = ({ view }) => {
   const { user } = useAuth();
   const { t } = useLang();
@@ -487,10 +493,10 @@ export const CitizenDashboard: React.FC<Props> = ({ view }) => {
 
   const getStatusColor = (status: IssueStatus) => {
     switch (status) {
-      case IssueStatus.RESOLVED: return 'text-green-800 bg-green-100';
-      case IssueStatus.IN_PROGRESS: return 'text-purple-800 bg-purple-100';
-      case IssueStatus.REJECTED: return 'text-red-800 bg-red-100';
-      default: return 'text-orange-800 bg-orange-100';
+      case IssueStatus.RESOLVED: return 'text-green-800 bg-green-100 dark:bg-green-900/30 dark:text-green-300';
+      case IssueStatus.IN_PROGRESS: return 'text-purple-800 bg-purple-100 dark:bg-purple-900/30 dark:text-purple-300';
+      case IssueStatus.REJECTED: return 'text-red-800 bg-red-100 dark:bg-red-900/30 dark:text-red-300';
+      default: return 'text-orange-800 bg-orange-100 dark:bg-orange-900/30 dark:text-orange-300';
     }
   };
 
@@ -615,8 +621,47 @@ _Reported via CityLink_`;
 
                  {/* Right Column: Details & Images */}
                  <div className="space-y-4">
-                     <div className="flex items-center gap-2 text-gray-500 text-sm">
-                         <Calendar size={16} /> Reported on: {new Date(issue.createdAt).toLocaleDateString()}
+                     <div className="space-y-2">
+                         <div className="flex items-center gap-2 text-gray-500 text-sm">
+                             <Calendar size={16} /> Reported on: {formatDateTime(issue.createdAt)}
+                         </div>
+                         
+                         {/* Status Change History */}
+                         {issue.statusHistory && issue.statusHistory.length > 1 && (
+                             <div className="mt-3 p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg border border-gray-200 dark:border-gray-600">
+                                 <h4 className="text-xs font-bold text-gray-700 dark:text-gray-300 mb-2 uppercase tracking-wide">Status Updates</h4>
+                                 <div className="space-y-2">
+                                     {issue.statusHistory.slice(1).map((change, idx) => (
+                                         <div key={idx} className="flex items-start gap-2 text-xs">
+                                             <Clock size={14} className="text-gray-400 mt-0.5 shrink-0" />
+                                             <div className="flex-1">
+                                                 <div className="flex items-center gap-2">
+                                                     <span className={`px-2 py-0.5 rounded text-[10px] font-bold ${getStatusColor(change.status)}`}>
+                                                         {t(change.status)}
+                                                     </span>
+                                                     <span className="text-gray-500">{formatDateTime(change.timestamp)}</span>
+                                                 </div>
+                                                 {change.reason && (
+                                                     <p className="text-gray-400 mt-1 ml-0.5">Reason: {change.reason}</p>
+                                                 )}
+                                             </div>
+                                         </div>
+                                     ))}
+                                 </div>
+                             </div>
+                         )}
+                         
+                         {/* Show Resolved/Rejected Date */}
+                         {issue.status === IssueStatus.RESOLVED && issue.resolutionDate && (
+                             <div className="flex items-center gap-2 text-green-600 dark:text-green-400 text-sm font-medium">
+                                 <CheckCircle size={16} /> Resolved on: {formatDateTime(issue.resolutionDate)}
+                             </div>
+                         )}
+                         {issue.status === IssueStatus.REJECTED && issue.updatedAt && issue.updatedAt !== issue.createdAt && (
+                             <div className="flex items-center gap-2 text-red-600 dark:text-red-400 text-sm font-medium">
+                                 <Ban size={16} /> Rejected on: {formatDateTime(issue.updatedAt)}
+                             </div>
+                         )}
                      </div>
 
                      {/* Rejection Msg */}
@@ -1094,7 +1139,7 @@ _Reported via CityLink_`;
                                           <p className="text-sm text-gray-500 line-clamp-2 mt-1">{issue.description}</p>
                                           <div className="flex items-center gap-4 mt-3">
                                               <div className="flex items-center gap-1 text-xs text-gray-400">
-                                                  <Clock size={12}/> {new Date(issue.createdAt).toLocaleDateString()}
+                                                  <Calendar size={12}/> {formatDateTime(issue.createdAt)}
                                               </div>
                                               {/* Clickable Action Icons */}
                                               <div className="flex items-center gap-3 text-xs font-medium text-gray-500">

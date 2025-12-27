@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { createUser, sendOtpToEmail, verifyOtp } from '../services/storageService';
 import { UserRole } from '../types';
 import { MOCK_CITIES } from '../constants';
-import { AlertCircle, Globe, MapPin, Key, Info, X, Crosshair } from 'lucide-react';
+import { AlertCircle, Globe, MapPin, Key, Info, X, Crosshair, Home } from 'lucide-react';
 import { useLang } from '../App';
 
 // Leaflet declaration
@@ -217,7 +217,10 @@ export const RegisterPage: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center p-4 relative">
-      <div className="absolute top-4 right-4">
+      <div className="absolute top-4 right-4 flex items-center gap-3">
+         <Link to="/" className="flex items-center gap-2 bg-white dark:bg-gray-800 px-3 py-1.5 rounded shadow text-sm border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
+             <Home size={16}/> Home
+         </Link>
          <button onClick={toggleLang} className="flex items-center gap-2 bg-white dark:bg-gray-800 px-3 py-1 rounded shadow text-sm border border-gray-200 dark:border-gray-700">
              <Globe size={16}/> {lang === 'en' ? 'தமிழ்' : 'English'}
          </button>

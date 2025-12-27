@@ -32,6 +32,12 @@ export interface IssueVotes {
   userVotes?: Record<string, 'up' | 'down'>;
 }
 
+export interface StatusChange {
+  status: IssueStatus;
+  timestamp: number;
+  reason?: string;
+}
+
 export interface Issue {
   id: string;
   title: string;
@@ -54,6 +60,7 @@ export interface Issue {
   city: string;
   createdAt: number;
   updatedAt: number;
+  statusHistory?: StatusChange[];
 }
 
 export interface AuthState {

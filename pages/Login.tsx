@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth, useLang } from '../App';
 import { authenticateUser, sendOtpToEmail, verifyOtp, resetUserPassword } from '../services/storageService';
-import { Lock, Mail, AlertCircle, ArrowLeft, Key, CheckCircle, Globe, Info } from 'lucide-react';
+import { Lock, Mail, AlertCircle, ArrowLeft, Key, CheckCircle, Globe, Info, Home } from 'lucide-react';
 
 export const LoginPage: React.FC = () => {
   // Login State
@@ -164,7 +164,10 @@ export const LoginPage: React.FC = () => {
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center p-4 relative">
        
-       <div className="absolute top-4 right-4 z-20">
+       <div className="absolute top-4 right-4 z-20 flex items-center gap-3">
+         <Link to="/" className="flex items-center gap-2 bg-white dark:bg-gray-800 px-3 py-1.5 rounded shadow text-sm border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
+             <Home size={16}/> Home
+         </Link>
          <button onClick={toggleLang} className="flex items-center gap-2 bg-white dark:bg-gray-800 px-3 py-1 rounded shadow text-sm border border-gray-200 dark:border-gray-700">
              <Globe size={16}/> {lang === 'en' ? 'தமிழ்' : 'English'}
          </button>

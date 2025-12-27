@@ -150,33 +150,33 @@ export const LandingPage: React.FC = () => {
             <div className="absolute top-0 right-0 w-2/3 h-full bg-gradient-to-l from-green-50 to-transparent dark:from-green-900/20 -z-10 opacity-70"></div>
             <div className="absolute top-20 left-10 w-72 h-72 bg-blue-100 dark:bg-blue-900/10 rounded-full blur-[100px] -z-10"></div>
             
-            <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 lg:gap-20 items-center">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 grid md:grid-cols-2 gap-8 sm:gap-12 lg:gap-20 items-center w-full">
             
             {/* Left Content */}
             <div className="space-y-8 order-2 md:order-1">
                 <div className="opacity-0 animate-fade-in-up delay-200">
-                    <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-green-50 dark:bg-green-900/30 text-green-700 dark:text-green-300 text-sm font-bold tracking-wide border border-green-100 dark:border-green-800 mb-6 shadow-sm cursor-default hover:scale-105 transition-transform">
-                        <span className="relative flex h-2 w-2">
+                    <span className="inline-flex items-center gap-2 px-3 py-1.5 sm:px-4 rounded-full bg-green-50 dark:bg-green-900/30 text-green-700 dark:text-green-300 text-xs sm:text-sm font-bold tracking-wide border border-green-100 dark:border-green-800 mb-4 sm:mb-6 shadow-sm cursor-default hover:scale-105 transition-transform">
+                        <span className="relative flex h-2 w-2 shrink-0">
                           <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
                           <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
                         </span>
-                        {t('tnCoverage')}
+                        <span className="break-words">{t('tnCoverage')}</span>
                     </span>
-                    <h2 className="text-5xl md:text-7xl font-extrabold text-gray-900 dark:text-white leading-[1.1] tracking-tight mb-6">
+                    <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-extrabold text-gray-900 dark:text-white leading-[1.1] tracking-tight mb-4 sm:mb-6 break-words">
                         {t('landingTitle')}
                     </h2>
-                    <p className="text-xl text-gray-600 dark:text-gray-300 leading-relaxed max-w-lg">
+                    <p className="text-base sm:text-lg md:text-xl text-gray-600 dark:text-gray-300 leading-relaxed max-w-lg break-words">
                         {t('landingSubtitle')}
                     </p>
-                    <div className="h-1 w-20 bg-green-500 rounded-full mt-6"></div>
+                    <div className="h-1 w-20 bg-green-500 rounded-full mt-4 sm:mt-6"></div>
                 </div>
 
-                <div className="flex flex-col sm:flex-row gap-4 opacity-0 animate-fade-in-up delay-300">
-                <Link to="/register" className="px-8 py-4 bg-green-600 hover:bg-green-700 text-white rounded-2xl font-bold text-lg text-center flex items-center justify-center gap-2 shadow-xl shadow-green-200 dark:shadow-green-900/20 hover:shadow-2xl transition-all hover:-translate-y-1">
-                    {t('reportIssueBtn')}
-                    <MapPin size={20} className="animate-bounce" />
+                <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 opacity-0 animate-fade-in-up delay-300">
+                <Link to="/register" className="px-6 py-3 sm:px-8 sm:py-4 bg-green-600 hover:bg-green-700 text-white rounded-xl sm:rounded-2xl font-bold text-sm sm:text-base md:text-lg text-center flex items-center justify-center gap-2 shadow-xl shadow-green-200 dark:shadow-green-900/20 hover:shadow-2xl transition-all hover:-translate-y-1">
+                    <span className="break-words">{t('reportIssueBtn')}</span>
+                    <MapPin size={18} className="animate-bounce shrink-0" />
                 </Link>
-                <Link to="/login" className="px-8 py-4 border-2 border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 rounded-2xl font-bold text-lg text-center hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+                <Link to="/login" className="px-6 py-3 sm:px-8 sm:py-4 border-2 border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 rounded-xl sm:rounded-2xl font-bold text-sm sm:text-base md:text-lg text-center hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors break-words">
                     {t('adminLoginBtn')}
                 </Link>
                 </div>

@@ -1,4 +1,4 @@
-import { User, Issue, IssueStatus, UserRole } from '../types';
+import { User, Issue, IssueStatus, UserRole, StatusChange } from '../types';
 
 // Storage Keys
 const KEYS = {
@@ -42,7 +42,8 @@ const getStoredIssues = (): Issue[] => {
   issues = issues.map(issue => ({
     ...issue,
     imageUrls: issue.imageUrls || (issue.imageUrl ? [issue.imageUrl] : []),
-    votes: issue.votes || { up: 0, down: 0, votedUserIds: [], userVotes: {} }
+    votes: issue.votes || { up: 0, down: 0, votedUserIds: [], userVotes: {} },
+    statusHistory: issue.statusHistory || [{ status: issue.status, timestamp: issue.createdAt }]
   }));
   
   return issues;
@@ -203,7 +204,8 @@ export const createIssue = async (issueData: Partial<Issue>): Promise<Issue> => 
     city: issueData.city || '',
     createdAt: Date.now(),
     updatedAt: Date.now(),
-    votes: { up: 0, down: 0, votedUserIds: [], userVotes: {} }
+    votes: { up: 0, down: 0, votedUserIds: [], userVotes: {} },
+    statusHistory: [{ status: IssueStatus.PENDING, timestamp: Date.now() }]
   };
 
   issues.unshift(newIssue); // Add to top
@@ -230,8 +232,19 @@ export const updateIssueStatus = async (id: string, status: IssueStatus, resolut
   
   if (index === -1) throw new Error("Issue not found");
   
+  const oldStatus = issues[index].status;
   issues[index].status = status;
   issues[index].updatedAt = Date.now();
+  
+  // Track status change in history
+  if (!issues[index].statusHistory) {
+    issues[index].statusHistory = [{ status: oldStatus, timestamp: issues[index].createdAt }];
+  }
+  
+  const statusChange: StatusChange = {
+    status: status,
+    timestamp: Date.now()
+  };
   
   if (status === IssueStatus.RESOLVED && resolutionImage) {
       issues[index].resolutionImageUrl = resolutionImage;
@@ -240,6 +253,12 @@ export const updateIssueStatus = async (id: string, status: IssueStatus, resolut
   
   if (status === IssueStatus.REJECTED && rejectionReason) {
       issues[index].rejectionReason = rejectionReason;
+      statusChange.reason = rejectionReason;
+  }
+  
+  // Only add to history if status actually changed
+  if (oldStatus !== status) {
+    issues[index].statusHistory!.push(statusChange);
   }
 
   saveIssues(issues);
