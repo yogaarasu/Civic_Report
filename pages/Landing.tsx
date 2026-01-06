@@ -269,14 +269,7 @@ export const LandingPage: React.FC = () => {
             </div>
             
             {/* Scroll Indicator - Mouse Animation */}
-            <div 
-                className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 cursor-pointer z-20 opacity-70 hover:opacity-100 transition-opacity"
-                onClick={() => scrollToSection('features')}>
-                <span className="text-[10px] font-bold text-gray-500 dark:text-gray-400 tracking-[0.2em] uppercase animate-pulse">Scroll</span>
-                <div className="w-6 h-10 border-2 border-gray-400 dark:border-gray-500 rounded-full flex justify-center p-1">
-                    <div className="w-1 h-2 bg-green-500 rounded-full animate-scroll-wheel"></div>
-                </div>
-            </div>
+           
         </section>
 
         {/* --- FEATURES SECTION --- */}

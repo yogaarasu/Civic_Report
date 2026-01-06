@@ -27,7 +27,7 @@ app.use((req, res, next) => {
 // MongoDB Connection with Retry Logic
 const connectDB = async () => {
   try {
-    await mongoose.connect('mongodb://localhost:27017/citylink', {
+    await mongoose.connect(process.env.MONGO_URI, {
       serverSelectionTimeoutMS: 5000 
     });
     console.log('✅ MongoDB Connected Successfully');
